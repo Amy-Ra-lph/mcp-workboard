@@ -9,7 +9,7 @@
 ## Security (Five-Layer Model)
 - API credentials MUST use `SecretStr` — never logged, never in `repr()`
 - Credentials MUST come from environment variables only — no hardcoded values
-- No `eval()`, `exec()`, filesystem access, or shell execution
+- No `eval()`, `exec()`, filesystem access, or shell execution (exception: reading a credential file path from a `*_FILE` env var in `config.py`)
 - Auth MUST go in headers, never in URLs
 - URL path parameters MUST be encoded to prevent path traversal
 - Pydantic models MUST use `extra="forbid"`

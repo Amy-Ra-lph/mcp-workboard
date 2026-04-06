@@ -4,7 +4,7 @@ This module defines exception classes that are safe to expose to MCP clients.
 Internal errors should be caught and converted to UserError before propagating.
 """
 
-import os
+from __future__ import annotations
 
 
 class UserError(Exception):
@@ -90,7 +90,12 @@ class WorkBoardApiError(UserError):
     """
 
     def __init__(self, code: int, message: str) -> None:
-        token = os.environ.get("WORKBOARD_API_TOKEN", "")
+        from .config import get_config
+
+        try:
+            token = get_config().token
+        except Exception:
+            token = ""
         safe_message = message.replace(token, "***") if token else message
         super().__init__(f"WorkBoard API error {code}: {safe_message}")
 
