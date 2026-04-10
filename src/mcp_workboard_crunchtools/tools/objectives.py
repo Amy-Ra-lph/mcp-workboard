@@ -11,7 +11,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from ..client import get_client
-from ..errors import UserError
+from ..errors import UserError, WorkBoardApiError
 from ..models import (
     CreateObjectiveInput,
     UpdateKeyResultInput,
@@ -537,7 +537,20 @@ async def update_key_result(
     if validated.comment is not None:
         payload["metric_comment"] = validated.comment
 
-    response = await client.put(f"/metric/{metric_id}", json_data=payload)
+    try:
+        response = await client.put(f"/metric/{metric_id}", json_data=payload)
+    except WorkBoardApiError as exc:
+        if "past_due_goal" in str(exc):
+            logger.info(
+                "Objective has ended — retrying with force_update for metric %d",
+                metric_id,
+            )
+            payload["force_update"] = "yes"
+            response = await client.put(
+                f"/metric/{metric_id}", json_data=payload
+            )
+        else:
+            raise
 
     logger.info(
         "AUDIT: Key result updated — metric_id=%d, new_value=%s, comment=%s",

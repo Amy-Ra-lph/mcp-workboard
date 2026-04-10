@@ -116,7 +116,10 @@ class WorkBoardClient:
         self, status_code: int, error_body: dict[str, Any]
     ) -> None:
         """Handle error responses from the API."""
-        error_msg = error_body.get("message", "Unknown error")
+        error_msg = (
+            error_body.get("message")
+            or error_body.get("error_description", "Unknown error")
+        )
         if isinstance(error_msg, dict):
             error_msg = str(error_msg)
 
