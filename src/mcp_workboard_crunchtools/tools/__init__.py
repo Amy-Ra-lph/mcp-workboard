@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2026 crunchtools.com
 """WorkBoard MCP tools.
 
 This package contains all the MCP tool implementations for WorkBoard operations.

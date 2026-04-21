@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2026 crunchtools.com
 """Secure configuration handling."""
 
 import logging
@@ -58,12 +60,12 @@ class Config:
         return "https://www.myworkboard.com/wb/apis"
 
     def __repr__(self) -> str:
-        """Safe repr that never exposes the token."""
-        return "Config(token=***)"
+        """Safe repr that never exposes credentials."""
+        return "Config(***)"
 
     def __str__(self) -> str:
-        """Safe str that never exposes the token."""
-        return "Config(token=***)"
+        """Safe str that never exposes credentials."""
+        return "Config(***)"
 
 
 

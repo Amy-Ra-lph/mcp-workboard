@@ -41,6 +41,10 @@ RUN pip install --no-cache-dir .
 # Verify installation
 RUN python -c "from mcp_workboard_crunchtools import main; print('Installation verified')"
 
+# Create non-root user for security
+RUN useradd -r -s /bin/false appuser
+USER appuser
+
 # Default: stdio transport (use -i with podman run)
 # HTTP:    --transport streamable-http (use -d -p 8000:8000 with podman run)
 EXPOSE 8000

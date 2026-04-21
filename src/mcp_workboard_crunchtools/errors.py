@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+# Copyright (c) 2026 crunchtools.com
 """Safe error types that can be shown to users.
 
 This module defines exception classes that are safe to expose to MCP clients.

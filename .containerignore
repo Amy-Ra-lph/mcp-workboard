@@ -1,0 +1,10 @@
+.git
+.env
+.env.*
+*.token
+__pycache__
+*.pyc
+.venv
+venv
+.mypy_cache
+.pytest_cache
